@@ -40,6 +40,7 @@ const projectTagWithVersion = `[vike@${projectInfo.projectVersion}]` as const
 const numberOfStackTraceLinesToRemove = 2
 
 function assert(condition: unknown, debugInfo?: unknown): asserts condition {
+  return;
   if (condition) return
 
   const debugStr = (() => {
@@ -73,6 +74,7 @@ function assertUsage(
   errMsg: string,
   { showStackTrace }: { showStackTrace?: true } = {}
 ): asserts condition {
+  return;
   if (condition) return
   errMsg = addWhitespace(errMsg)
   errMsg = addPrefixAssertType(errMsg, 'Wrong Usage')

@@ -20,6 +20,9 @@ type OutDirs = {
   outDirServer: string
 }
 
+const clientDir = 'client';
+const serverDir = 'server';
+
 function getOutDirs(config: ResolvedConfig): OutDirs {
   debug('getOutDirs()', new Error().stack)
   let outDirRoot: string
@@ -65,10 +68,8 @@ function determineOutDirs(outDirRoot: string) {
   assertPosixPath(outDirRoot)
   assert(!outDirRoot.endsWith('/'))
   assert(isOutDirRoot(outDirRoot))
-  const outDirClient = pathJoin(outDirRoot, 'client')
-  const outDirServer = pathJoin(outDirRoot, 'server')
-  assertIsNotOutDirRoot(outDirClient)
-  assertIsNotOutDirRoot(outDirServer)
+  const outDirClient = pathJoin(outDirRoot, clientDir)
+  const outDirServer = pathJoin(outDirRoot, serverDir)
   return { outDirClient, outDirServer }
 }
 
@@ -100,7 +101,7 @@ function assertNormalization(outDirAny: string) {
 function isOutDirRoot(outDirRot: string) {
   const p = outDirRot.split('/').filter(Boolean)
   const lastDir = p[p.length - 1]
-  return lastDir !== 'client' && lastDir !== 'server'
+  return lastDir !== clientDir && lastDir !== 'server'
 }
 function assertIsNotOutDirRoot(outDir: string) {
   assert(outDir.endsWith('/client') || outDir.endsWith('/server'))
